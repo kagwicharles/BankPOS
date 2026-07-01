@@ -4,6 +4,7 @@ namespace BankPOS.Entities
     {
         public int TillId { get; set; }
         public int BranchId { get; set; }
+        public required Branch Branch { get; set; }
         public string TillNumber { get; set; } = string.Empty;
         public bool IsActive { get; set; }
     }

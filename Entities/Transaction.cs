@@ -4,6 +4,7 @@ namespace BankPOS.Entities
     {
         public int TransactionId { get; set; }
         public int AccountId { get; set; }
+        public required Account Account { get; set; }
         public string TransactionType { get; set; } = string.Empty;
         public decimal Amount { get; set; }
         public required string Reference { get; set; }
