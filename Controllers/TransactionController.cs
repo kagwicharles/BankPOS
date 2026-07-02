@@ -1,4 +1,3 @@
-using System.Transactions;
 using BankPOS.DTOs;
 using BankPOS.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +15,8 @@ namespace BankPOS.Controllers
             _transactionService = transactionService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions()
+        [HttpGet("/api/GetTransactions")]
+        public async Task<ActionResult<IEnumerable<TransactionDto>>> GetTransactions()
         {
             var transactions = await _transactionService.GetTransactionsAsync();
             var dtos = transactions.Select(t => new TransactionDto
