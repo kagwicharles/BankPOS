@@ -8,7 +8,7 @@ namespace BankPOS.Entities
         public string TransactionType { get; set; } = string.Empty;
         public decimal Amount { get; set; }
         public required string Reference { get; set; }
-        public DateTime TimeStamP { get; set; }
+        public DateTime TimeStamp { get; set; }
         public bool Status { get; set; }
     }
 }

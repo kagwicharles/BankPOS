@@ -22,7 +22,10 @@ namespace BankPOS.Controllers
             var dtos = transactions.Select(t => new TransactionDto
             {
                 TransactionReference = t.Reference,
-                AccountNumber = t.AccountId
+                AccountNumber = t.AccountId,
+                Amount = t.Amount,
+                TransactionType = t.TransactionType,
+                TransactionDate = t.TimeStamp
             });
             return Ok(dtos);
         }
