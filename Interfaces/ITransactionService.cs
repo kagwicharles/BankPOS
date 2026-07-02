@@ -6,7 +6,7 @@ namespace BankPOS.Interfaces
     public interface ITransactionService
     {
         Task<IEnumerable<Transaction>> GetTransactionsAsync();
-        Task<IEnumerable<Transaction>> GetTransactionsByCustomerIdAsync(int accountId);
+        Task<IEnumerable<Transaction>> GetTransactionsByAccountIdAsync(int accountId);
         Task<Transaction> CreateTransactionAsync(Transaction transaction);
     }
 }

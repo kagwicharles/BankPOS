@@ -1,4 +1,5 @@
 using BankPOS.DTOs;
+using BankPOS.Entities;
 using BankPOS.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,18 +17,53 @@ namespace BankPOS.Controllers
         }
 
         [HttpGet("/api/GetTransactions")]
-        public async Task<ActionResult<IEnumerable<TransactionDto>>> GetTransactions()
+        public async Task<ActionResult<IEnumerable<GetTransactionsResponse>>> GetTransactions()
         {
             var transactions = await _transactionService.GetTransactionsAsync();
-            var dtos = transactions.Select(t => new TransactionDto
-            {
-                TransactionReference = t.Reference,
-                AccountNumber = t.AccountId,
-                Amount = t.Amount,
-                TransactionType = t.TransactionType,
-                TransactionDate = t.TimeStamp
-            });
+            var dtos = transactions.Select(t => new GetTransactionsResponse
+            (
+                t.Reference,
+                t.AccountId,
+                t.Amount,
+                t.TimeStamp,
+                t.TransactionType
+            ));
             return Ok(dtos);
+        }
+
+        [HttpPost("/api/GetTransactionsByAccountId")]
+        public async Task<ActionResult<IEnumerable<GetTransactionsResponse>>> GetTransactionsByAccountId([FromBody] GetTransactionsByAccountIdRequest request)
+        {
+            var transactions = await _transactionService.GetTransactionsByAccountIdAsync(request.AccountId);
+            var dtos = transactions.Select(t => new GetTransactionsResponse
+            (
+                t.Reference,
+                t.AccountId,
+                t.Amount,
+                t.TimeStamp,
+                t.TransactionType
+            ));
+            return Ok(dtos);
+        }
+
+        [HttpPost("/api/CreateTransaction")]
+        public async Task<ActionResult<CreateTransactionResponse>> CreateTransaction([FromBody] CreateTransactionRequest request)
+        {
+            var transaction = new Transaction
+            {
+                AccountId = request.AccountId,
+                Amount = request.Amount,
+                TransactionType = request.TransactionType
+            };
+            var createdTransaction = await _transactionService.CreateTransactionAsync(transaction);
+            return Ok(new CreateTransactionResponse
+            (
+                createdTransaction.Reference,
+                createdTransaction.Amount,
+                createdTransaction.TimeStamp,
+                createdTransaction.AccountId,
+                createdTransaction.Status
+            ));
         }
     }
 }

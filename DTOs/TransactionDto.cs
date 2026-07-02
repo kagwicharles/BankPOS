@@ -1,17 +1,33 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace BankPOS.DTOs
 {
-    public class TransactionDto
-    {
-        public string TransactionReference { get; set; } = string.Empty;
-        public int AccountNumber { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime TransactionDate { get; set; }
-        public string TransactionType { get; set; } = string.Empty;
-    }
+    public record GetTransactionsResponse
+    (
+         [property: Required] string TransactionReference,
+         int AccountNumber,
+         decimal Amount,
+         DateTime TransactionDate,
+         string TransactionType
+    );
 
-    public class CreateTransactionDto
-    {
-        public int AccountNumber { get; set; }
-        public decimal Amount { get; set; }
-    }
+    public record CreateTransactionRequest
+    (
+         int AccountId,
+         decimal Amount,
+         string TransactionType
+    );
+
+    public record GetTransactionsByAccountIdRequest
+    (
+        [property: Required] int AccountId
+    );
+
+    public record CreateTransactionResponse(
+        string Reference,
+        decimal Amount,
+        DateTime TimeStamp,
+        int AccountId,
+        bool Status
+    );
 }

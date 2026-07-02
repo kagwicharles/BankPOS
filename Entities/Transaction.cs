@@ -4,10 +4,10 @@ namespace BankPOS.Entities
     {
         public int TransactionId { get; set; }
         public int AccountId { get; set; }
-        public required Account Account { get; set; }
+        public Account? Account { get; set; }
         public string TransactionType { get; set; } = string.Empty;
         public decimal Amount { get; set; }
-        public required string Reference { get; set; }
+        public string Reference { get; set; } = string.Empty;
         public DateTime TimeStamp { get; set; }
         public bool Status { get; set; }
     }
