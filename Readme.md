@@ -29,8 +29,6 @@ It's built as a straightforward **ASP.NET Core Web API** using **Controllers + D
 - Service-layer patterns via interfaces (`ITransactionService`, `IAccountService`)
 - Modeling real-world domain relationships (Branch → Till → ShiftSession → Transaction → Receipt)
 
-If you're a recruiter or hiring manager skimming this: this repo is a practical demonstration of **C# / .NET backend engineering**, **RESTful API design**, and **relational domain modeling** for financial systems.
-
 ## Architecture
 
 ![Request flow: Client to Controllers to Services to Entities](./assets/architecture.svg)
