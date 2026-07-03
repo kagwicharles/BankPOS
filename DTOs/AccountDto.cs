@@ -14,6 +14,10 @@ namespace BankPOS.DTOs
         int AccountId
     );
 
+    public record GetCustomerAccountsRequest(
+        int CustomerId
+    );
+
     public record GetCustomerAccountsResponse(
         int AccountId,
         int CustomerId,

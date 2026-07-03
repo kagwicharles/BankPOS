@@ -33,5 +33,19 @@ namespace BankPOS.Controllers
                 createdAccount.AccountId
             ));
         }
+
+        [HttpPost("/api/getCustomerAccounts")]
+        public async Task<ActionResult<IEnumerable<Account>>> GetCustomerAccounts([FromBody] GetCustomerAccountsRequest request)
+        {
+            var accounts = await _accountService.GetCustomerAccountsAsync(request.CustomerId);
+            var dtos = accounts.Select(t => new GetCustomerAccountsResponse(
+                t.AccountId,
+                request.CustomerId,
+                t.AccountType,
+                t.AccountNumber,
+                t.Balance
+            ));
+            return Ok(dtos);
+        }
     }
 }
