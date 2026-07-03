@@ -1,4 +1,5 @@
 using BankPOS.Data;
+using BankPOS.Entities;
 using BankPOS.Interfaces;
 using BankPOS.Services;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<BankPosDbContext>(options =>
 );
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

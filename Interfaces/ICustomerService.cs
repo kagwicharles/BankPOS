@@ -4,6 +4,8 @@ namespace BankPOS.Interfaces
 {
     public interface ICustomerService
     {
-        Task<Customer> CreateCustomer();
+        Task<Customer> CreateCustomerAsync(Customer customer);
+
+        Task<Customer> GetCustomerProfileAsync(int customerId);
     }
 }
