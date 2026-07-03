@@ -18,7 +18,7 @@ namespace BankPOS.Controllers
         }
 
         [HttpPost("/api/createAccount")]
-        public async Task<ActionResult<Account>> CreateAccount([FromBody] CreateAccountRequest request)
+        public async Task<ActionResult<CreateAccountResponse>> CreateAccount([FromBody] CreateAccountRequest request)
         {
             var account = new Account
             {
@@ -35,7 +35,7 @@ namespace BankPOS.Controllers
         }
 
         [HttpPost("/api/getCustomerAccounts")]
-        public async Task<ActionResult<IEnumerable<Account>>> GetCustomerAccounts([FromBody] GetCustomerAccountsRequest request)
+        public async Task<ActionResult<IEnumerable<GetCustomerAccountsRequest>>> GetCustomerAccounts([FromBody] GetCustomerAccountsRequest request)
         {
             var accounts = await _accountService.GetCustomerAccountsAsync(request.CustomerId);
             var dtos = accounts.Select(t => new GetCustomerAccountsResponse(
