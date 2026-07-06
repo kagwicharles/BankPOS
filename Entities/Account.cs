@@ -7,7 +7,6 @@ namespace BankPOS.Entities
     {
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; } = null!;
-
         public string AccountNumber { get; set; } = string.Empty;
         public string AccountType { get; set; } = string.Empty;
         public decimal Balance { get; set; }
