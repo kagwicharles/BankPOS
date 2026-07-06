@@ -5,7 +5,7 @@ namespace BankPOS.DTOs
     public record GetTransactionsResponse
     (
          [property: Required] string TransactionReference,
-         int AccountNumber,
+         Guid AccountNumber,
          decimal Amount,
          DateTime TransactionDate,
          string TransactionType
@@ -13,21 +13,21 @@ namespace BankPOS.DTOs
 
     public record CreateTransactionRequest
     (
-         int AccountId,
+         Guid AccountId,
          decimal Amount,
          string TransactionType
     );
 
     public record GetTransactionsByAccountIdRequest
     (
-        [property: Required] int AccountId
+        [property: Required] Guid AccountId
     );
 
     public record CreateTransactionResponse(
         string Reference,
         decimal Amount,
         DateTime TimeStamp,
-        int AccountId,
+        Guid AccountId,
         bool Status
     );
 }

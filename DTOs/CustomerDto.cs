@@ -9,18 +9,18 @@ namespace BankPOS.DTOs
     );
 
     public record CreateCustomerResponse(
-        int CustomerId,
+        Guid CustomerId,
         string CustomerName,
         string CustomerNationalId,
         string CustomerPhone
     );
 
     public record GetCustomerProfileRequest(
-        [property: Required] int CustomerId
+        Guid CustomerId
     );
 
     public record GetCustomerProfileResponse(
-        int CustomerId,
+        Guid CustomerId,
         string CustomerName,
         string CustomerNationalId,
         string CustomerPhone

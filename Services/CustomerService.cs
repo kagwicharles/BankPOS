@@ -22,10 +22,10 @@ namespace BankPOS.Services
             return customer;
         }
 
-        public async Task<Customer> GetCustomerProfileAsync(int customerId)
+        public async Task<Customer?> GetCustomerProfileAsync(Guid customerId)
         {
             return await _context.Customers
-            .Where(c => c.CustomerId == customerId).FirstAsync();
+            .Where(c => c.Id == customerId).SingleOrDefaultAsync();
         }
     }
 }

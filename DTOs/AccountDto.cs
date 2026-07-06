@@ -4,23 +4,24 @@ namespace BankPOS.DTOs
 {
 
     public record CreateAccountRequest(
-        [property: Required] int CustomerId,
-        string AccountType
+        Guid CustomerId,
+        string AccountType,
+        string BranchCode
     );
 
     public record CreateAccountResponse(
-       [property: Required] int CustomerId,
+        Guid CustomerId,
         string AccountType,
-        int AccountId
+        Guid AccountId
     );
 
     public record GetCustomerAccountsRequest(
-        int CustomerId
+        Guid CustomerId
     );
 
     public record GetCustomerAccountsResponse(
-        int AccountId,
-        int CustomerId,
+        Guid AccountId,
+        Guid CustomerId,
         string AccountType,
         string AccountNumber,
         decimal Balance

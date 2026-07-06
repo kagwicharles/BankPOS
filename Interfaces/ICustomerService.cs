@@ -6,6 +6,6 @@ namespace BankPOS.Interfaces
     {
         Task<Customer> CreateCustomerAsync(Customer customer);
 
-        Task<Customer> GetCustomerProfileAsync(int customerId);
+        Task<Customer?> GetCustomerProfileAsync(Guid customerId);
     }
 }

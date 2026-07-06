@@ -23,14 +23,15 @@ namespace BankPOS.Controllers
             var account = new Account
             {
                 CustomerId = request.CustomerId,
-                AccountType = request.AccountType
+                AccountType = request.AccountType,
+                BranchCode = request.BranchCode
             };
             var createdAccount = await _accountService.CreateAccountAsync(account);
             return Ok(new CreateAccountResponse
             (
                 createdAccount.CustomerId,
                 createdAccount.AccountType,
-                createdAccount.AccountId
+                createdAccount.Id
             ));
         }
 
@@ -39,7 +40,7 @@ namespace BankPOS.Controllers
         {
             var accounts = await _accountService.GetCustomerAccountsAsync(request.CustomerId);
             var dtos = accounts.Select(t => new GetCustomerAccountsResponse(
-                t.AccountId,
+                t.Id,
                 request.CustomerId,
                 t.AccountType,
                 t.AccountNumber,

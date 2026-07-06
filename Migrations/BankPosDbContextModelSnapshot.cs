@@ -22,13 +22,13 @@ namespace BankPOS.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.HasSequence("account_number_seq")
+                .StartsAt(1000L);
+
             modelBuilder.Entity("BankPOS.Entities.Account", b =>
                 {
-                    b.Property<int>("AccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AccountId"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
@@ -41,14 +41,18 @@ namespace BankPOS.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("timestamp with time zone");
@@ -56,7 +60,7 @@ namespace BankPOS.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -65,11 +69,8 @@ namespace BankPOS.Migrations
 
             modelBuilder.Entity("BankPOS.Entities.Branch", b =>
                 {
-                    b.Property<int>("BranchId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BranchId"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("BranchCode")
                         .IsRequired()
@@ -79,22 +80,31 @@ namespace BankPOS.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("BranchId");
+                    b.HasKey("Id");
 
                     b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("BankPOS.Entities.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerId"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -120,30 +130,39 @@ namespace BankPOS.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("BankPOS.Entities.Receipt", b =>
                 {
-                    b.Property<int>("ReceiptId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ReceiptId"));
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("IssuedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("ReceiptNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TransactionId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("TransactionId")
+                        .HasColumnType("uuid");
 
-                    b.HasKey("ReceiptId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TransactionId");
 
@@ -152,17 +171,26 @@ namespace BankPOS.Migrations
 
             modelBuilder.Entity("BankPOS.Entities.ShiftSession", b =>
                 {
-                    b.Property<int>("ShiftSessionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ShiftSessionId"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("ClosedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("ClosingCash")
                         .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("OpenedAt")
                         .HasColumnType("timestamp with time zone");
@@ -182,10 +210,10 @@ namespace BankPOS.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TillId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("TillId")
+                        .HasColumnType("uuid");
 
-                    b.HasKey("ShiftSessionId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TillId");
 
@@ -194,23 +222,32 @@ namespace BankPOS.Migrations
 
             modelBuilder.Entity("BankPOS.Entities.Till", b =>
                 {
-                    b.Property<int>("TillId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TillId"));
+                    b.Property<Guid>("BranchId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("BranchId")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("TillNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("TillId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BranchId");
 
@@ -219,17 +256,26 @@ namespace BankPOS.Migrations
 
             modelBuilder.Entity("BankPOS.Entities.Transaction", b =>
                 {
-                    b.Property<int>("TransactionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TransactionId"));
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("Reference")
                         .IsRequired()
@@ -245,7 +291,7 @@ namespace BankPOS.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("TransactionId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 

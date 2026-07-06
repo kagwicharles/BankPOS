@@ -1,9 +1,10 @@
+using BankPOS.Common;
+
 namespace BankPOS.Entities
 {
-    public class Till
+    public class Till : BaseEntity
     {
-        public int TillId { get; set; }
-        public int BranchId { get; set; }
+        public Guid BranchId { get; set; }
         public required Branch Branch { get; set; }
         public string TillNumber { get; set; } = string.Empty;
         public bool IsActive { get; set; }
