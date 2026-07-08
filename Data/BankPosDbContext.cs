@@ -1,11 +1,12 @@
 using BankPOS.Common;
 using BankPOS.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankPOS.Data
 {
-    public class BankPosDbContext : DbContext
+    public class BankPosDbContext : IdentityDbContext<ApplicationUser>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 

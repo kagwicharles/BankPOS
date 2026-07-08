@@ -1,7 +1,9 @@
 using BankPOS.Data;
 using BankPOS.Entities;
+using BankPOS.Helpers;
 using BankPOS.Interfaces;
 using BankPOS.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +18,19 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 4;
+    }
+).AddEntityFrameworkStores<BankPosDbContext>()
+.AddDefaultTokenProviders();
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    await RoleSeeder.SeedRolesAsync(scope.ServiceProvider);
+}
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
